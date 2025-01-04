@@ -213,27 +213,13 @@ async def start(client, message):
                     reply_markup=reply_markup
                 )
                 filesarr.append(msg)
+                await asyncio.sleep(2) 
             
             # Delete the temporary message
-            except FloodWait as e:
-                await asyncio.sleep(e.x)
-                logger.warning(f"Floodwait of {e.x} sec. Retrying...")
-
-        # Retry sending the message after the wait
-            try:
-                msg = await client.send_cached_media(
-                    chat_id=message.from_user.id,
-                    file_id=msg.get("file_id"),
-                    caption=f_caption,
-                    protect_content=msg.get('protect', False),
-                    reply_markup=InlineKeyboardMarkup(button)
-                )
-                filesarr.append(msg)
-            
             except Exception as e:
                 logger.warning(e, exc_info=True)
                 continue
-            await asyncio.sleep(2) 
+            
         await sts.delete()
         if AUTO_DELETE_MODE == True:
             k = await client.send_message(chat_id = message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Fi>{AUTO_DELETE} minutes</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this File/Video to your Saved Messages and Start Download there</b>")
