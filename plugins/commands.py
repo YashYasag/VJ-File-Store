@@ -1,7 +1,3 @@
-# Don't Remove Credit Tg - @VJ_Botz
-# Subscribe YouTube Channel For Amazing Bot https://youtube.com/@Tech_VJ
-# Ask Doubt on telegram @KingVJ01
-
 import os
 import logging
 import random
@@ -205,20 +201,33 @@ async def start(client, message):
                 else:
                     reply_markup = None
 
-                msg = await client.send_cached_media(
+                msg_sent = await client.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
                     protect_content=msg.get('protect', False),
                     reply_markup=reply_markup
                 )
-                filesarr.append(msg)
-                await asyncio.sleep(2) 
+                filesarr.append(msg_sent)
+
+            except FloodWait as e:
+            # Handle flood wait by sleeping for the time specified by the exception
+                logger.warning(f"Floodwait of {e.x} sec. Sleeping for {e.x} seconds.")
+                await asyncio.sleep(e.x)  # Sleep for the exact flood wait time
+                msg_sent = await client.send_cached_media(
+                    chat_id=message.from_user.id,
+                    file_id=msg.get("file_id"),
+                    caption=f_caption,
+                    protect_content=msg.get('protect', False),
+                    reply_markup=reply_markup
+                )
+                filesarr.append(msg_sent)
             
             # Delete the temporary message
             except Exception as e:
                 logger.warning(e, exc_info=True)
                 continue
+                await asyncio.sleep(0.5)
             
         await sts.delete()
         if AUTO_DELETE_MODE == True:
