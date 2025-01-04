@@ -23,7 +23,7 @@ from urllib.parse import quote_plus
 from TechVJ.utils.file_properties import get_name, get_hash, get_media_file_size
 logger = logging.getLogger(__name__)
 
-OP = True
+OP = False
 
 BATCH_FILES = {}
 
@@ -183,7 +183,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
-                    protect_content=msg.get('protect', OP),
+                    protect_content=msg.get("protect", OP if cmd.lower().strip() == "/pbatch" else OP),
                     reply_markup=reply_markup
                 )
                 filesarr.append(msg)
@@ -195,7 +195,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
-                    protect_content=msg.get('protect', OP),
+                    protect_content=msg.get("protect", OP if cmd.lower().strip() == "/pbatch" else OP),
                     reply_markup=InlineKeyboardMarkup(button)
                 )
                 filesarr.append(msg)
