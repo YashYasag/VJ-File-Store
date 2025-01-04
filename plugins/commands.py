@@ -391,7 +391,8 @@ async def shortener_api_handler(client, m):
 # Ask Doubt on telegram @KingVJ01
 
 @Client.on_message(filters.command("base_site") & filters.private)
-async def base_site_handler(client, m: Message):
+async def base_site_handler(client, m):
+    m = message
     user_id = m.from_user.id
     user = await get_user(user_id)
     cmd = m.command
