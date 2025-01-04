@@ -182,9 +182,6 @@ async def start(client, message):
                 else:
                     reply_markup = None
 
-                temp_msg = await message.reply_text("Wait More...")
-            
-            # Send the actual file
                 msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file.get("file_id"),
@@ -195,13 +192,9 @@ async def start(client, message):
                 filesarr.append(msg)
             
             # Delete the temporary message
-                await temp_msg.delete()
-
             except FloodWait as e:
                 await asyncio.sleep(e.x)
                 logger.warning(f"Floodwait of {e.x} sec.")
-            
-                temp_msg = await message.reply_text("Wait More...")
             
                 msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
@@ -211,7 +204,6 @@ async def start(client, message):
                     reply_markup=InlineKeyboardMarkup(reply_markup)
                 )
                 filesarr.append(msg)
-                await temp_msg.delete()
             
             except Exception as e:
                 logger.warning(e, exc_info=True)
