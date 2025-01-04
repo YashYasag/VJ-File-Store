@@ -181,31 +181,42 @@ async def start(client, message):
                 
                 else:
                     reply_markup = None
-                
+
+                temp_msg = await message.reply_text("Wait More...")
+            
+            # Send the actual file
                 msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
-                    file_id=msg.get("file_id"),
+                    file_id=file.get("file_id"),
                     caption=view_caption,
                     protect_content=OP,
                     reply_markup=reply_markup
                 )
                 filesarr.append(msg)
-                
+            
+            # Delete the temporary message
+                await temp_msg.delete()
+
             except FloodWait as e:
                 await asyncio.sleep(e.x)
                 logger.warning(f"Floodwait of {e.x} sec.")
+            
+                temp_msg = await message.reply_text("Wait More...")
+            
                 msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
-                    file_id=msg.get("file_id"),
+                    file_id=file.get("file_id"),
                     caption=f_caption,
                     protect_content=OP,
-                    reply_markup=InlineKeyboardMarkup(button)
+                    reply_markup=InlineKeyboardMarkup(reply_markup)
                 )
                 filesarr.append(msg)
+                await temp_msg.delete()
+            
             except Exception as e:
                 logger.warning(e, exc_info=True)
                 continue
-            await asyncio.sleep(1) 
+            await asyncio.sleep(4) 
         await sts.delete()
         if AUTO_DELETE_MODE == True:
             k = await client.send_message(chat_id = message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Fi>{AUTO_DELETE} minutes</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this File/Video to your Saved Messages and Start Download there</b>")
