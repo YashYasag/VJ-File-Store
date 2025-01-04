@@ -17,7 +17,7 @@ sɪᴢᴇ ⚙️: {file_size}
 
 Jᴏɪɴ [ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ](https://t.me/vj_botz)</b>""" 
 
-    CAPTIONOP = """<b>📂 ғɪʟᴇɴᴀᴍᴇ : {view_caption}
+    CAPTIONOP = """<b>📂 ғɪʟᴇɴᴀᴍᴇ : {f_caption}
 
 sɪᴢᴇ ⚙️: {file_size}
 
