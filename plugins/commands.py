@@ -415,7 +415,8 @@ async def base_site_handler(client, m):
 # Ask Doubt on telegram @KingVJ01
 
 @Client.on_callback_query()
-async def cb_handler(client: Client, query: CallbackQuery):
+async def cb_handler(client: Client, query):
+    query = CallbackQuery
     if query.data == "close_data":
         await query.message.delete()
     elif query.data == "about":
