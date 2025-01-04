@@ -215,17 +215,7 @@ async def start(client, message):
                 filesarr.append(msg)
             
             # Delete the temporary message
-            except FloodWait as e:
-                await asyncio.sleep(e.x)
-                logger.warning(f"Floodwait of {e.x} sec.")
-                msg = await client.send_cached_media(
-                    chat_id=message.from_user.id,
-                    file_id=msg.get("file_id"),
-                    caption=f_caption,
-                    protect_content=OP,
-                    reply_markup=InlineKeyboardMarkup(button)
-                )
-                filesarr.append(msg)
+            
             
             except Exception as e:
                 logger.warning(e, exc_info=True)
