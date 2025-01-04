@@ -177,7 +177,7 @@ async def start(client, message):
                         InlineKeyboardButton("• ᴡᴀᴛᴄʜ ɪɴ ᴡᴇʙ ᴀᴘᴘ •", web_app=WebAppInfo(url=stream))
                     ]]
                     reply_markup=InlineKeyboardMarkup(button)
-                    view_caption = f"**{f_caption}** [Watch Online]({stream})"
+                    view_caption = f"**{f_caption}**\n**━━━━━━━━━━━━━━━━━◇**\n**⛧ 🄱🅈 :-) [ℍ𝔸ℂ𝕂ℍ𝔼𝕀𝕊𝕋 😈](https://t.me/TEAM_OPTECH)   ♛**\n**━━━━━━━━━━━━━━━━━◇**\n**[🏅𝐀𝐋𝐋 𝐂𝐎𝐍𝐓𝐄𝐍𝐓  𝐖𝐄𝐁𝐒𝐈𝐓𝐄𝐒 👻](https://yashyasag.github.io/hiddens)**\n**——————————————————**\n**[🚀ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ/ғᴀsᴛ ᴅᴏᴡɴʟᴏᴀᴅ]({stream})**\n**——————————————————**"
                 
                 else:
                     reply_markup = None
