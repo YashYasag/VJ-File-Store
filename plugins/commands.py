@@ -23,6 +23,8 @@ from urllib.parse import quote_plus
 from TechVJ.utils.file_properties import get_name, get_hash, get_media_file_size
 logger = logging.getLogger(__name__)
 
+OP = False
+
 BATCH_FILES = {}
 
 # Don't Remove Credit Tg - @VJ_Botz
@@ -181,7 +183,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
-                    protect_content=msg.get('protect', False),
+                    protect_content=msg.get('protect', OP),
                     reply_markup=reply_markup
                 )
                 filesarr.append(msg)
@@ -193,7 +195,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
-                    protect_content=msg.get('protect', False),
+                    protect_content=msg.get('protect', OP),
                     reply_markup=InlineKeyboardMarkup(button)
                 )
                 filesarr.append(msg)
@@ -236,7 +238,7 @@ async def start(client, message):
             msg = await client.send_cached_media(
                 chat_id=message.from_user.id,
                 file_id=file_id,
-                protect_content=True if pre == 'filep' else False,  
+                protect_content=OP if pre == 'file' else OP,  
             )
             filetype = msg.media
             file = getattr(msg, filetype.value)
@@ -309,7 +311,7 @@ async def start(client, message):
         chat_id=message.from_user.id,
         file_id=file_id,
         caption=f_caption,
-        protect_content=True if pre == 'filep' else False,
+        protect_content=OP if pre == 'file' else OP,
     )
     if STREAM_MODE == True:
         g = await x.reply_text(
