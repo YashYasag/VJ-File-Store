@@ -183,7 +183,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
-                    protect_content=msg.get("protect", OP if cmd.lower().strip() == "/pbatch" else OP),
+                    protect_content=msg.get("protect", OP),
                     reply_markup=reply_markup
                 )
                 filesarr.append(msg)
@@ -195,7 +195,7 @@ async def start(client, message):
                     chat_id=message.from_user.id,
                     file_id=msg.get("file_id"),
                     caption=f_caption,
-                    protect_content=msg.get("protect", OP if cmd.lower().strip() == "/pbatch" else OP),
+                    protect_content=msg.get("protect", OP),
                     reply_markup=InlineKeyboardMarkup(button)
                 )
                 filesarr.append(msg)
@@ -494,7 +494,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             stream = f"{URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
             download = f"{URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
 
-            xo = await query.message.reply_text(f'🔐')
+            xo = await query.message.reply_text(f'😁')
             await asyncio.sleep(1)
             await xo.delete()
 
